@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<robot>
+
+<!--gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+
+  </plugin>
+</gazebo-->
+
+<gazebo reference="chassis">
+    <mu1>0.3</mu1>
+    <mu2>0.3</mu2>
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="FRONTRIGHT">
+    <mu1 value="2.0"/>
+    <mu2 value="1.0"/>
+    <kp  value="10000000.0" />
+    <kd>1.0</kd>
+    <material>Gazebo/FlatBlack</material>
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+
+
+    <gazebo reference="FRONTLEFT">
+      <mu1 value="2.0"/>
+      <mu2 value="1.0"/>
+      <kp  value="10000000.0" />
+      <kd>1.0</kd>
+      <material>Gazebo/FlatBlack</material>
+      <fdir1 value="1 0 0"/>
+    </gazebo>
+
+
+  <gazebo reference="BACKRIGHT">
+    <mu1 value="2.0"/>
+    <mu2 value="1.0"/>
+    <kp  value="10000000.0" />
+    <kd>1.0</kd>
+    <material>Gazebo/FlatBlack</material>
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+
+
+    <gazebo reference="BACKLEFT">
+      <mu1 value="2.0"/>
+      <mu2 value="1.0"/>
+      <kp  value="10000000.0" />
+      <kd>1.0</kd>
+      <material>Gazebo/FlatBlack</material>
+      <fdir1 value="1 0 0"/>
+    </gazebo>
+
+    <gazebo>
+    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+    <updateRate>100.0</updateRate>
+    <robotNamespace>/robot_base</robotNamespace>
+    <leftFrontJoint>JFRONTRIGHT</leftFrontJoint>  
+    <rightFrontJoint>JFRONTLEFT</rightFrontJoint>
+    <leftRearJoint>JBACKRIGHT</leftRearJoint>
+    <rightRearJoint>JBACKLEFT</rightRearJoint>
+    <wheelSeparation>0.5</wheelSeparation>
+    <wheelDiameter>0.127</wheelDiameter>
+    <robotBaseFrame>base_link</robotBaseFrame>
+    <torque>20</torque>
+    <topicName>cmd_vel</topicName>
+    
+    <commandTopic>cmd_vel</commandTopic>
+    <odometryTopic>odom</odometryTopic>
+    <odometryFrame>odom</odometryFrame>
+    
+    <broadcastTF>true</broadcastTF>
+  </plugin>
+</gazebo>
+
+<gazebo reference="lidar">
+      <sensor type="ray"
+              name="head_hokuyo_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>40</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>720</samples>
+              <resolution>1</resolution>
+              <min_angle>-1.570796</min_angle>
+              <max_angle>1.570796</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.05</min>
+            <max>15.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+
+        <plugin name="gazebo_ros_head_hokuyo_controller"
+                filename="libgazebo_ros_laser.so">
+          <topicName>robot_base/scan</topicName>
+          <frameName>lidar</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+
+</robot>
