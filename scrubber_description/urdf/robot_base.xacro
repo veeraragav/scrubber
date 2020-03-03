@@ -31,14 +31,14 @@
         xyz="-0.025921 -0.00023881 -0.093361"
         rpy="0 0 0" />
       <mass
-        value="30" />
+        value="0.3" />
       <inertia
-        ixx="0.28974"
-        ixy="-0.003469"
-        ixz="0.037331"
-        iyy="0.71812"
-        iyz="-0.0010571"
-        izz="0.69853" />
+        ixx="1"
+        ixy="0"
+        ixz="0"
+        iyy="1"
+        iyz="0"
+        izz="1" />
     </inertial>
     <visual>
       <origin
@@ -92,6 +92,9 @@
       rpy="1.507 0 0" />
     </visual>
     <collision>
+    <origin
+      xyz="0 0 0"
+      rpy="1.507 0 0" />
       <geometry>
         <cylinder length="0.05" radius="0.1"/>
       </geometry>
@@ -100,8 +103,8 @@
     <origin
       xyz="0 0 0"
       rpy="1.507 0 0" />
-      <mass value="10"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.3"/>
+      <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
     </inertial>
   </link>
 
@@ -132,6 +135,9 @@
       rpy="1.507 0 0" />
     </visual>
     <collision>
+    <origin
+      xyz="0 0 0"
+      rpy="1.507 0 0" />
       <geometry>
         <cylinder length="0.05" radius="0.1"/>
       </geometry>
@@ -140,8 +146,8 @@
     <origin
       xyz="0 0 0"
       rpy="1.507 0 0" />
-      <mass value="10"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.3"/>
+      <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
     </inertial>
   </link>
 
@@ -149,7 +155,7 @@
     name="brush_joint"
     type="fixed">
     <origin
-      xyz="0.3 0.0 -0.05"
+      xyz="0.3 0.0 -0.09"
       rpy="0 0 0 " />
     <parent
       link="chassis" />
@@ -164,14 +170,21 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <mass
-        value="2" />
-      <inertia
+        value="0.5" />
+        <inertia
+        ixx="1"
+        ixy="0"
+        ixz="0"
+        iyy="1"
+        iyz="0"
+        izz="1" />
+      <!--inertia
         ixx="0.28974"
         ixy="-0.003469"
         ixz="0.037331"
         iyy="0.71812"
         iyz="-0.0010571"
-        izz="0.69853" />
+        izz="0.69853" /-->
     </inertial>
     <visual>
       <origin
@@ -199,11 +212,11 @@
   </link>
 
 
-    <joint
+  <joint
     name="lidar_joint"
     type="fixed">
     <origin
-      xyz="0.35 0.0 0.225"
+      xyz="0.55 0.0 0.225"
       rpy="0 0 0 " />
     <parent
       link="chassis" />
@@ -234,28 +247,28 @@
     <mechanicalReduction>1</mechanicalReduction>
   </actuator>
 </transmission>
-
-<transmission name="back_left_trans">
-  <type>transmission_interface/SimpleTransmission</type>
-  <joint name="JBACKLEFT">
-    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-  </joint>
-  <actuator name="Back_Left_Motor">
-    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
-</transmission>
-
-<transmission name="back_right_trans">
-  <type>transmission_interface/SimpleTransmission</type>
-  <joint name="JBACKRIGHT">
-    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-  </joint>
-  <actuator name="Back_Right_Motor">
-    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
-</transmission>
 -->
+<transmission name="left_trans">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="JLEFT">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="Left_Motor">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="right_trans">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="JRIGHT">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="Right_Motor">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
 
 </robot>
